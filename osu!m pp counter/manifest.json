@@ -1,0 +1,27 @@
+{
+ "name": "Osu!mania pp", 
+ "version": "1.0", 
+ "description": "Osu!mania pp calculator", 
+ "manifest_version": 2,
+
+ "background": {
+  "scripts": ["background.js"],
+  "persistent": false
+  },
+
+ "page_action": {
+  "default_title": "Osu!mania pp",
+  "default_popup": "popup.html"
+ },
+
+ "permissions": [
+  "tabs",
+  "activeTab",
+  "https://osu.ppy.sh/beatmapsets/*" 
+ ],
+
+ "content_scripts": [{
+		"matches": ["https://osu.ppy.sh/beatmapsets/*"],
+    "js": ["scripts/jquery.js", "content_script.js"]
+ 	}]
+}
