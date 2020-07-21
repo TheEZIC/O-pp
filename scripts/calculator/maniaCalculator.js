@@ -1,25 +1,27 @@
-export class ManiaCalculator {
-    constructor(map) {
+module.exports = class ManiaCalculator {
+    constructor(map, mods, score = 1e6, ) {
         this.map = map;
+        this.mods = mods;
+        this.score = score;
 
         this.pp = this.calcPP();
     }
 
     calcStrainValue() {
-        let strainValue;
+        let { totalObj } = this.map.objects;
+        let { SR } = this.map.diff;
+        let strainValue = 0;
     
-        if (scoreMultiplayer <= 0) 
-            strainValue = 0;
+        /* if (scoreMultiplayer <= 0) 
+            strainValue = 0; */
     
-        if (realScore < 5e5) 
-            realScore = 5e5;
+        /* if (this.score <= 5e5) 
+            this.score = 5e5; */
     
-        let score = realScore;
-    
-        let SR = +this.map.diff.SR.toFixed(2);
+        let score = this.score;
     
         strainValue = Math.pow(5 * Math.max(1, SR / 0.2) - 4, 2.2) / 135;
-        strainValue *= 1 + 0.1 * Math.min(1, objectsCount / 1500);
+        strainValue *= 1 + 0.1 * Math.min(1, totalObj / 1500);
     
         if (score <= 5e5)
             strainValue = 0;
@@ -34,18 +36,20 @@ export class ManiaCalculator {
         else
             strainValue = strainValue * (0.9 + (score - 9e5) / 1e5 * 0.1);
     
-        return +strainValue.toFixed(2);
+        return strainValue;
     }
 
     calcAccValue () {
-        let OD = parseInt(this.map.stats.OD);
+        let { OD } = this.map.stats;
     
-        let hitWindow300 = 34 + 3 * (Math.min(10, Math.max(0, 10 - OD)));
+        let hitWindow = 34 + 3 * (Math.min(10, Math.max(0, 10 - OD)));
     
-        if (hitWindow300 <= 0)
-            hitWindow300 = 0;
+        if (hitWindow <= 0)
+            hitWindow = 0;
     
-        return Math.max(0, 0.2 - ((hitWindow300 - 34) * 0.006667)) * this.calсStrainValue() * Math.pow((Math.max(0, realScore - 96e4) / 4e4), 1.1);
+        if (this.mods.has("NF") || this.mods.has("EZ") || this.mods.has("HT")) this.score *= 0.5;
+
+        return Math.max(0, 0.2 - ((hitWindow - 34) * 0.006667)) * this.calcStrainValue() * Math.pow((Math.max(0, this.score - 96e4) / 4e4), 1.1);
     }
     
     calcPP() {
@@ -53,10 +57,10 @@ export class ManiaCalculator {
         let str = this.calcStrainValue();
         let acc = this.calcAccValue();
     
-        if (nfMod) multiplier *= 0.9;
-        if (ezMod) multiplier *= 0.5;
-        if (dtMod) multiplier *= 0.9;
-        if (htMod) multiplier *= 0.6;
+        if (this.mods.has("NF")) multiplier *= 0.9;
+        if (this.mods.has("EZ")) multiplier *= 0.5;
+
+        //80 - Math.ceil(6 * OD);
     
         return Math.pow((str ** 1.1 + acc ** 1.1), 1 / 1.1) * multiplier;
     }

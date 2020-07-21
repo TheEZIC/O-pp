@@ -1,4 +1,4 @@
-export class TaikoCalculator {
+module.exports = class TaikoCalculator {
     constructor(
         map, 
         mods, 
@@ -8,25 +8,25 @@ export class TaikoCalculator {
     ) {
         this.map = map;
         this.mods = mods;
-        this.combo = combo;
-        this.acc = acc;
-        this.miss = miss;
+        this.combo = combo || this.map.combo;
+        this.acc = acc || 1;
+        this.miss = miss || 0;
 
         this.pp = this.calcPP();
     }
 
     calcStrainValue() {
         let { totalObj } = this.map.objects;
-        let strainValue = Math.pow(5 * Math.max(1, this.map.diff.stars / 0.0075) - 4, 2) / 1e5;
+        let strainValue = Math.pow(5 * Math.max(1, this.map.diff.SR / 0.0075) - 4, 2) / 1e5;
         let lengthBonus = 1 + 0.1 * Math.min(1, totalObj / 1500);
 
         strainValue *= lengthBonus;
-        strainValue *= Math.pow(0.985, this.miss);
-        strainValue *= Math.min(Math.pow((objCount - this.miss), 0.5) / Math.pow(this.map.combo, 0.5), 1);
+        strainValue *= 0.985 ** this.miss;
+        strainValue *= Math.min((totalObj - this.miss) ** 0.5 / this.map.combo ** 0.5, 1);
 
-        if(this.mods.has("Hidden"))
+        if(this.mods.has("HD"))
             strainValue *= 1.025;
-        if(this.mods.has("Flashlight"))
+        if(this.mods.has("FL"))
             strainValue *= 1.05 * lengthBonus;
 
         strainValue *= this.acc;
@@ -36,8 +36,8 @@ export class TaikoCalculator {
 
     calcAccValue() {
         let { totalObj } = this.map.objects;
-        let hitWindow = 80 - Math.ceil(6 * this.map.stats.od);
-        let accValue = Math.pow(150 / hitWindow, 1.1) * Math.pow(acc, 15) * 22;
+        let hitWindow = 80 - Math.ceil(6 * this.map.stats.OD);
+        let accValue = Math.pow(150 / hitWindow, 1.1) * Math.pow(this.acc, 15) * 22;
 
         accValue *= Math.min(1.15, Math.pow(totalObj / 1500, 0.3));
 
@@ -47,13 +47,13 @@ export class TaikoCalculator {
     calcPP() {
         let multiplier = 1.1;
 
-        if(this.mods.has("NoFail"))
-            multiplier *= 0.9;
-        if(this.mods.has("Hidden"))
-            multiplier *= 1.1;
+        if(this.mods.has("NF")) multiplier *= 0.9;
+        if(this.mods.has("HD")) multiplier *= 1.1;
         
         let str = this.calcStrainValue();
         let acc = this.calcAccValue();
+
+        console.log(str, acc)
 
         return Math.pow((str ** 1.1 + acc ** 1.1), 1.0 / 1.1) * multiplier;
     }

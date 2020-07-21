@@ -8,11 +8,10 @@
 </head>
 <body>
 	<div class="container">
-		
 		<header class="header" id="header">
 			<div class="shadow"></div>
-			<span class="song-title" id="title">123123</span>
-			<span class="song-title" id="artist">123123</span>
+			<span class="song-title" id="title"></span>
+			<span class="song-title" id="artist"></span>
 		</header>
 		<main class="content">
 			<!-- user-inputs -->
@@ -23,45 +22,61 @@
 			</div>
 			<div class="mods-container">
 				<!-- EZ -->
-				<div class="mods-item">
+				<div class="mods-item" id="ez-container">
 					<label class="checkbox-container">
-						<input  type="checkbox" id="ez" checked>
+						<input  type="checkbox" id="ez">
 						<img class="mods-icon" id="ez-icon" src="mod-icons/selection-mod-easy.png" alt="NF">
 					</label>
-					<span class="mods-title">Eazy</span>
+					<span class="mods-title">Easy</span>
 				</div>
 				<!-- NF -->
-				<div class="mods-item">
-					<label class="checkbox-container">
-						<input  type="checkbox" id="nf" checked>
+				<div class="mods-item" id="nf-container">
+					<label class="checkbox-container" id="nf-container">
+						<input  type="checkbox" id="nf">
 						<img class="mods-icon" id="nf-icon" src="mod-icons/selection-mod-nofail.png" alt="NF">
 					</label>
 					<span class="mods-title">No fail</span>
 				</div>
 				<!-- HT -->
-				<div class="mods-item">
+				<div class="mods-item" id="ht-container">
 					<label class="checkbox-container">
-						<input  type="checkbox" id="ht" checked>
+						<input  type="checkbox" id="ht">
 						<img class="mods-icon" id="ht-icon" src="mod-icons/selection-mod-halftime.png" alt="NF">
 					</label>
 					<span class="mods-title">Half time</span>
 				</div>
-				<!-- DT -->
-				<div class="mods-item">
+				<!-- HR -->
+				<div class="mods-item" id="hr-container">
 					<label class="checkbox-container">
-						<input  type="checkbox" id="dt" checked>
+						<input  type="checkbox" id="hr">
+						<img class="mods-icon" id="hr-icon" src="mod-icons/selection-mod-hardrock.png" alt="HD">
+					</label>
+					<span class="mods-title">Hard rock</span>
+				</div>
+				<!-- DT -->
+				<div class="mods-item" id="dt-container">
+					<label class="checkbox-container">
+						<input  type="checkbox" id="dt">
 						<img class="mods-icon" id="dt-icon" src="mod-icons/selection-mod-doubletime.png" alt="DT">
 					</label>
 					<span class="mods-title">Double time</span>
 				</div>
-				
-				<!-- <div class="mods-item">
+				<!-- HD -->
+				<div class="mods-item" id="hd-container">
 					<label class="checkbox-container">
-						<input  type="checkbox" id="hd" checked>
+						<input  type="checkbox" id="hd">
 						<img class="mods-icon" id="hd-icon" src="mod-icons/selection-mod-hidden.png" alt="HD">
 					</label>
 					<span class="mods-title">Hidden</span>
-				</div> -->
+				</div>
+				<!-- FL -->
+				<div class="mods-item" id="fl-container">
+					<label class="checkbox-container">
+						<input  type="checkbox" id="fl">
+						<img class="mods-icon" id="fl-icon" src="mod-icons/selection-mod-flashlight.png" alt="HD">
+					</label>
+					<span class="mods-title">Flashlight</span>
+				</div>
 			</div>
 		</main>
 		<footer class="footer" id="footer">
@@ -69,10 +84,7 @@
 		</footer>
 	</div>
 	<!-- Scripts -->
-	<!-- <script src="scripts/jquery.js" type="text/javascript" charset="utf-8"></script> -->
 	<script src="background.js" type="text/javascript" charset="utf-8"></script>
-	<script src="scripts/popup.js" type="text/javascript" charset="utf-8"></script>
-	
-	
+	<script src="popup.js" type="text/javascript" charset="utf-8"></script>
 </body>
 </html>
