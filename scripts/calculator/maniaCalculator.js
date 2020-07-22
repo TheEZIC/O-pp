@@ -12,12 +12,6 @@ module.exports = class ManiaCalculator {
         let { SR } = this.map.diff;
         let strainValue = 0;
     
-        /* if (scoreMultiplayer <= 0) 
-            strainValue = 0; */
-    
-        /* if (this.score <= 5e5) 
-            this.score = 5e5; */
-    
         let score = this.score;
     
         strainValue = Math.pow(5 * Math.max(1, SR / 0.2) - 4, 2.2) / 135;
@@ -47,7 +41,7 @@ module.exports = class ManiaCalculator {
         if (hitWindow <= 0)
             hitWindow = 0;
     
-        if (this.mods.has("NF") || this.mods.has("EZ") || this.mods.has("HT")) this.score *= 0.5;
+        if (this.score >= 5e5 && (this.mods.has("NF") || this.mods.has("EZ") || this.mods.has("HT"))) this.score *= 0.5;
 
         return Math.max(0, 0.2 - ((hitWindow - 34) * 0.006667)) * this.calcStrainValue() * Math.pow((Math.max(0, this.score - 96e4) / 4e4), 1.1);
     }

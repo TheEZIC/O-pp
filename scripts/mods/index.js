@@ -1,5 +1,5 @@
+let Mod = require('./mod.js');
 let { EventEmitter } = require('events');
-let Mod = require('./mod.js') 
 let modsEmitter = new EventEmitter();
 
 module.exports.modsEmitter = modsEmitter;
@@ -12,14 +12,17 @@ module.exports.Mods = class Mods {
 
 	addMods(mode) {
 		if (this.mods) this.clearMods();
+
 		switch (mode) {
 			case 1:
 				return new TaikoMods();
 			case 2:
 				return new CtbMods();
 			case 3:
+				console.log('mania')
 				return new ManiaMods();
 			default:
+				console.log('osu')
 				return new OsuMods();
 		}
 	}
@@ -34,7 +37,7 @@ module.exports.Mods = class Mods {
 
 	addActiveMod(mod) {
 		if(this.has(mod)) return;
-		console.log(mod)
+
 		if (mod == 'ht' && this.has('DT')) {
 			this.mods.DT.disactivate();
 			this.removeActiveMod("DT");
@@ -114,7 +117,8 @@ class CtbMods {
 
 class ManiaMods {
 	constructor() {
-		['EZ', 'NF', 'HT', 'DT'].forEach(m => {
+		['EZ', 'NF', 'HT', 'DT']
+		.forEach(m => {
 			this[m] = new Mod(m.toLowerCase());
 		})
 	}

@@ -1,6 +1,7 @@
 const
     gulp = require('gulp'),
     browserify = require('browserify'),
+    sass = require('gulp-sass')
     source = require('vinyl-source-stream');
 
 gulp.task('scripts', () => {
@@ -12,6 +13,13 @@ gulp.task('scripts', () => {
     )
 })
 
+gulp.task('styles', () => {
+    return gulp.src('./style/style.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('./style'));
+})
+
 gulp.task('default', () => {
-    return gulp.watch('./scripts/**/*.js', gulp.parallel(['scripts']));
+    gulp.watch('./scripts/**/*.js', gulp.parallel(['scripts']));
+    gulp.watch('./style/**/*.scss', gulp.parallel(['styles']));
 });

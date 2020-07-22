@@ -9,7 +9,7 @@ module.exports = class TaikoCalculator {
         this.map = map;
         this.mods = mods;
         this.combo = combo || this.map.combo;
-        this.acc = acc || 1;
+        this.acc = acc * 0.01 || 1;
         this.miss = miss || 0;
 
         this.pp = this.calcPP();

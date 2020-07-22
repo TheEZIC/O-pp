@@ -4,7 +4,6 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="style/style.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
-	<script src="scripts/popup.js"></script>
 </head>
 <body>
 	<div class="container">
@@ -15,11 +14,8 @@
 		</header>
 		<main class="content">
 			<!-- user-inputs -->
-			<div class="input-container">
-				<input class="input" id="score" type="text" placeholder="Score" value="1000000">
-				<input class="input" id="starRate" type="text" placeholder="Star rate">
-				<input class="input" id="OD" type="text" placeholder="OD">
-			</div>
+			<div id="inputsContainer" class="inputs-container"></div>
+			<!-- Mods -->
 			<div class="mods-container">
 				<!-- EZ -->
 				<div class="mods-item" id="ez-container">

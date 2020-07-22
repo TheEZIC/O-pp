@@ -7,7 +7,7 @@ module.exports = class Beatmap {
         this.artist = map.artist;
         this.title = map.title;
         this.diffName = map.version;
-        this.mapper = this.creator;
+        this.mapper = map.creator;
 
         this.combo = +map.max_combo;
 

@@ -9,7 +9,7 @@ module.exports = class OsuCalculator {
         this.map = map;
         this.mods = mods;
         this.combo = combo || this.map.objects.totalObj;
-        this.acc = acc || 1;
+        this.acc = acc * 0.01 || 1;
         this.miss = miss || 0;
 
         this.pp = this.calcPP();
@@ -61,7 +61,7 @@ module.exports = class OsuCalculator {
         let max300 = totalObj - hits.miss;
 
         hits[100] = Math.round(
-            -3 * ((this.acc /* * 0.01 */ - 1) * totalObj + hits.miss) * 0.5
+            -3 * ((this.acc - 1) * totalObj + hits.miss) * 0.5
         );
 
         if(hits[100] > max300) {
@@ -85,18 +85,13 @@ module.exports = class OsuCalculator {
             aimValue = aimValue ** 0.8;
 
         aimValue = ((5 * Math.max(1, aimValue / 0.0675) - 4) ** 3) / 1e5;
-        //console.log(aimValue)
         aimValue *= 0.95 + 0.4 * Math.min(1, totalObj / 2e3) + (totalObj > 2e3 ? Math.log10(totalObj / 2e3) * 0.5 : 0);
-        //console.log(aimValue)
         aimValue *= Math.pow(0.97, this.miss);
-        //console.log(aimValue)
         aimValue *= Math.min(Math.pow(this.combo, 0.8) / Math.pow(this.map.combo, 0.8), 1);
-        //console.log(aimValue)
 
         let ARFactor = this.calcARWithFactor(AR);
 
         aimValue *= ARFactor;
-        //console.log(aimValue)
 
         if(this.mods.has("HD"))
             aimValue *= 1.0 + 0.04 * (12 - AR);
@@ -107,10 +102,8 @@ module.exports = class OsuCalculator {
                 : 0
             );
         
-        aimValue *= 0.5 + this.acc / 2; //???
-        //console.log(aimValue)
+        aimValue *= 0.5 + this.acc / 2;
         aimValue *= 0.98 + Math.pow(this.map.stats.OD, 2) / 2500;
-        //console.log(aimValue)
 
         return aimValue;
     }
@@ -141,7 +134,6 @@ module.exports = class OsuCalculator {
     calcAccValue() {
         let { circles } = this.map.objects;
         let hits = this.getHitsFromAcc();
-        console.log(hits)
         let totalHits = hits[300] + hits[100] + hits[50] + hits.miss;
         let betterAccPerc = 0;
 
@@ -168,8 +160,6 @@ module.exports = class OsuCalculator {
         let aim = this.calcAimValue();
         let speed = this.calcSpeedValue();
         let acc = this.calcAccValue();
-
-        console.log(aim, speed, acc)
 
         return Math.pow((aim ** 1.1 + speed ** 1.1 + acc ** 1.1), 1 / 1.1) * multiplier;
     }

@@ -21,12 +21,14 @@ module.exports = class Mod {
     }
 
     activate() {
+        this.mod.checked = true;
         this.mod.setAttribute('checked', 'checked');
         this.icon.style.transform = 'scale(1.2, 1.2) rotate(10deg)';
         this.modsEmitter.emit('addMod', this.modName);
     }
 
     disactivate() {
+        this.mod.checked = false;
         this.mod.setAttribute('checked', '');
         this.icon.style.transform = 'scale(1.0, 1.0) rotate(0deg)';
         this.modsEmitter.emit('removeMod', this.modName);
