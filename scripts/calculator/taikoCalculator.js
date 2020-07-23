@@ -16,17 +16,16 @@ module.exports = class TaikoCalculator {
     }
 
     calcStrainValue() {
+        let { totalObj } = this.map.objects;
         let strainValue = Math.pow(5 * Math.max(1, this.map.diff.SR / 0.0075) - 4, 2) / 1e5;
-        let lengthBonus = 1 + 0.1 * Math.min(1, this.combo / 1500);
+        let lengthBonus = 1 + 0.1 * Math.min(1, totalObj / 1500);
 
         strainValue *= lengthBonus;
         strainValue *= 0.985 ** this.miss;
         strainValue *= Math.min((this.combo - this.miss) ** 0.5 / this.map.combo ** 0.5, 1);
 
-        if(this.mods.has("HD"))
-            strainValue *= 1.025;
-        if(this.mods.has("FL"))
-            strainValue *= 1.05 * lengthBonus;
+        if(this.mods.has("HD")) strainValue *= 1.025;
+        if(this.mods.has("FL")) strainValue *= 1.05 * lengthBonus;
 
         strainValue *= this.acc;
 
@@ -34,11 +33,19 @@ module.exports = class TaikoCalculator {
     }
 
     calcAccValue() {
-        let hitWindow = 80 - Math.ceil(6 * this.map.stats.OD);
-        let accValue = Math.pow(150 / hitWindow, 1.1) * Math.pow(this.acc, 15) * 22;
+        let { totalObj } = this.map.objects;
+        let { OD } = this.map.stats;
+        
+        if (this.mods.has('HR')) OD *= 1.4;
+        if (this.mods.has('EZ')) OD *= 0.5;
 
-        accValue *= Math.min(1.15, Math.pow(this.combo / 1500, 0.3));
+        let hitWindow = Math.floor(50 + (20 - 50) * OD / 10) - 0.5;
+        console.log(hitWindow)
+        let accValue = ((150 / hitWindow) ** 1.1) * (this.acc ** 15) * 22;
+        console.log(accValue)
 
+        accValue *= Math.min(1.15, (totalObj / 1500) ** 0.3);
+        console.log(accValue)
         return accValue;
     }
 

@@ -28,7 +28,6 @@ class Main {
 			this.mods = new Mods(this.mode);
 
 			this.map = await this.reqBeatmap(this.beatmapId, this.mode);
-			console.log(this.map)
 
 			new Inputs(this.map, this.mode);
 			this.inputsListener(this.mode);
@@ -37,7 +36,6 @@ class Main {
 
 		modsEmitter.on('addMod', async mod => {
 			this.mods.addActiveMod(mod);
-			console.log(this.mods.has('FL'))
 			this.map = await this.reqBeatmap(this.beatmapId, this.mode);
 			this.setMapInformation(this.map);
 		});
@@ -97,8 +95,9 @@ class Main {
 		if(!beatmapId) return;
 
 		let mods = this.mods.activeModsToNum();
-
-		return await this.api.getBeatmap(beatmapId, mode, mods);
+		let map = await this.api.getBeatmap(beatmapId, mode, mods);
+		console.log(map, mods);
+		return map;
 	}
 
 	getPP() {

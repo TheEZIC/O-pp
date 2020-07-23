@@ -32,6 +32,6 @@ class DefaultInputs {
 
 class ManiaInputs {
     constructor(container) {
-        container.innerHTML = new Input('score', this.map).createInput();
+        container.innerHTML = new Input('score').createInput();
     }
 }

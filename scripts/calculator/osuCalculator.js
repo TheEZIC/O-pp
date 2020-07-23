@@ -8,8 +8,8 @@ module.exports = class OsuCalculator {
     ) {
         this.map = map;
         this.mods = mods;
-        this.combo = combo || this.map.objects.totalObj;
-        this.acc = acc * 0.01 || 1;
+        this.combo = +combo || +this.map.combo;
+        this.acc = +acc * 0.01 || 1;
         this.miss = +miss || 0;
 
         this.pp = this.calcPP();
@@ -18,9 +18,9 @@ module.exports = class OsuCalculator {
     calcARWithFactor(AR) {
         let ARFactor = 1;
 
-        if(AR > 10.33)
+        if (AR > 10.33)
             ARFactor += 0.3 * (AR - 10.33);
-        else if(AR < 8)
+        else if (AR < 8)
             ARFactor += 0.01 * (8 - AR);
 
         return ARFactor;
@@ -77,55 +77,54 @@ module.exports = class OsuCalculator {
 
     calcAimValue() {
         let aimValue = this.map.diff.aim;
+        console.log(aimValue)
         let { AR } = this.map.stats;
         let { totalObj } = this.map.objects;
 
         //TouchDevice
-        if(this.mods.has("TD"))
-            aimValue = aimValue ** 0.8;
+        if(this.mods.has("TD")) aimValue = aimValue ** 0.8;
 
-        aimValue = ((5 * Math.max(1, aimValue / 0.0675) - 4) ** 3) / 1e5;
+        aimValue = Math.pow(5 * Math.max(1, aimValue / 0.0675) - 4, 3) / 1e5;
         aimValue *= 0.95 + 0.4 * Math.min(1, totalObj / 2e3) + (totalObj > 2e3 ? Math.log10(totalObj / 2e3) * 0.5 : 0);
-        aimValue *= Math.pow(0.97, this.miss);
-        aimValue *= Math.min(Math.pow(this.combo, 0.8) / Math.pow(this.map.combo, 0.8), 1);
+        aimValue *= 0.97 ** this.miss;
+        aimValue *= Math.min((this.combo ** 0.8) / (this.map.combo ** 0.8), 1);
 
         let ARFactor = this.calcARWithFactor(AR);
 
         aimValue *= ARFactor;
 
-        if(this.mods.has("HD"))
-            aimValue *= 1.0 + 0.04 * (12 - AR);
-        if(this.mods.has("FL"))
-            aimValue *= 1.0 + 0.35 * Math.min(1, this.combo / 200) + 
-            (this.combo > 200
-                ? 0.3 * Math.min(1, (this.combo - 200) / 300) + (this.combo > 500 ? (this.combo - 500) / 1200 : 0)
+        if(this.mods.has("HD")) aimValue *= 1.0 + 0.04 * (12 - AR);
+        if(this.mods.has("FL")) {
+            aimValue *= 1.0 + 0.35 * Math.min(1, totalObj / 200) + 
+            (totalObj > 200
+                ? 0.3 * Math.min(1, (totalObj - 200) / 300) + (totalObj > 500 ? (totalObj - 500) / 1200 : 0)
                 : 0
             );
-        
+        }
+
         aimValue *= 0.5 + this.acc / 2;
-        aimValue *= 0.98 + Math.pow(this.map.stats.OD, 2) / 2500;
+        aimValue *= 0.98 + (this.map.stats.OD ** 2) / 2500;
 
         return aimValue;
     }
 
     calcSpeedValue() {
+        let { AR } = this.map.stats.AR;
+        let speedValue = Math.pow(5 * Math.max(1, this.map.diff.speed / 0.0675) - 4, 3) / 1e5;
+        let ARFactor = this.calcARWithFactor(AR);
         let { totalObj } = this.map.objects;
 
-        let speedValue = Math.pow(5 * Math.max(1, this.map.diff.speed / 0.0675) - 4, 3) / 1e5;
-        
-        let ARFactor = this.calcARWithFactor(this.map.stats.AR);
-
-        if(this.map.stats.AR > 10.33)
+        if(AR > 10.33)
             speedValue *= ARFactor;
 
-        speedValue *= 0.95 + 0.4 * Math.min(1, this.combo / 2e3) + (this.combo > 2e3 ? Math.log10(this.combo / 2e3) * 0.5 : 0);
-        speedValue *= Math.pow(0.97, this.miss);
-        speedValue *= Math.min(Math.pow(this.combo, 0.8) / Math.pow(this.map.combo, 0.8), 1);
+        speedValue *= 0.95 + 0.4 * Math.min(1, totalObj / 2e3) + (totalObj > 2e3 ? Math.log10(totalObj / 2e3) * 0.5 : 0);
+        speedValue *= 0.97 ** this.miss;
+        speedValue *= Math.min((this.combo ** 0.8) / (this.map.combo ** 0.8), 1);
 
         if(this.mods.has("HD"))
             speedValue *= 1 + 0.04 * (12 - this.map.stats.AR);
 
-        speedValue *= 0.02 + this.acc; //???
+        speedValue *= 0.02 + this.acc;
         speedValue *= 0.96 + (Math.pow(this.map.stats.OD, 2) / 1600);
 
         return speedValue;
@@ -133,6 +132,7 @@ module.exports = class OsuCalculator {
 
     calcAccValue() {
         let { circles } = this.map.objects;
+        let { totalObj } = this.map.objects;
         let hits = this.getHitsFromAcc();
         let totalHits = hits[300] + hits[100] + hits[50] + hits.miss;
         let betterAccPerc = 0;
@@ -140,9 +140,9 @@ module.exports = class OsuCalculator {
         if(this.map.objects.circles > 0)
             betterAccPerc = Math.min(((hits[300] - (totalHits - circles)) * 6 + hits[100] * 2 + hits[50]) / (circles * 6), 1);
         
-        let accValue = Math.pow(1.52163, this.map.stats.OD) * Math.pow(betterAccPerc, 24) * 2.83;
+        let accValue = (1.52163 ** this.map.stats.OD) * (betterAccPerc ** 24) * 2.83;
 
-        accValue *= Math.min(1.15, Math.pow(circles / 1e3, 0.3));
+        accValue *= Math.min(1.15, (circles / 1e3) ** 0.3);
 
         if(this.mods.has("HD")) accValue *= 1.08;
         if(this.mods.has("FL")) accValue *= 1.02;
@@ -154,7 +154,6 @@ module.exports = class OsuCalculator {
         let multiplier = 1.12;
 
         if(this.mods.has("NF")) multiplier *= 0.9;
-        //SpunOut
         if(this.mods.has("SO")) multiplier *= 0.95;
         
         let aim = this.calcAimValue();
