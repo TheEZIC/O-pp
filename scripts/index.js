@@ -37,6 +37,7 @@ class Main {
 
 		modsEmitter.on('addMod', async mod => {
 			this.mods.addActiveMod(mod);
+			console.log(this.mods.has('FL'))
 			this.map = await this.reqBeatmap(this.beatmapId, this.mode);
 			this.setMapInformation(this.map);
 		});

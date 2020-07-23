@@ -107,7 +107,7 @@
   height: 100%;
   position: absolute;
   background: #000000;
-  opacity: .4;
+  opacity: .6;
   z-index: 3; }
 
 .song-title, #artist {
@@ -127,7 +127,7 @@
 
 .inputs-container {
   width: 100%;
-  height: 70px;
+  height: 50px;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -143,7 +143,8 @@
 
 .mods-container {
   width: 100%;
-  min-height: 150px;
+  min-height: 100px;
+  padding: 10px 0;
   display: flex;
   justify-content: space-around;
   align-items: center;

@@ -11,27 +11,15 @@ module.exports.Mods = class Mods {
 	}
 
 	addMods(mode) {
-		if (this.mods) this.clearMods();
-
 		switch (mode) {
 			case 1:
 				return new TaikoMods();
 			case 2:
 				return new CtbMods();
 			case 3:
-				console.log('mania')
 				return new ManiaMods();
 			default:
-				console.log('osu')
 				return new OsuMods();
-		}
-	}
-
-	clearMods() {
-		for (let mod in this.mods) {
-			console.log(this.mods[mod])
-			this.mods[mod].delete();
-			delete this.mods[mod];
 		}
 	}
 

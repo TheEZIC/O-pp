@@ -10,7 +10,7 @@ module.exports = class OsuCalculator {
         this.mods = mods;
         this.combo = combo || this.map.objects.totalObj;
         this.acc = acc * 0.01 || 1;
-        this.miss = miss || 0;
+        this.miss = +miss || 0;
 
         this.pp = this.calcPP();
     }
@@ -37,11 +37,11 @@ module.exports = class OsuCalculator {
         let n300 = hits[300];
 
         if (n300 < 0)
-            n300 = Math.max(0, totalObj - hits[100] - hits[50] - hits.miss)
+            n300 = Math.max(0, totalObj - hits[100] - hits[50] - hits.miss);
         
         let hitCount = n300 + hits[100] + hits[50] + hits.miss;
 
-        if(hitCount > totalObj)
+        if (hitCount > totalObj)
             n300 -= Math.min(n300, hitCount - totalObj);
 
         hitCount = n300 + hits[100] + hits[50] + hits.miss;
@@ -64,14 +64,14 @@ module.exports = class OsuCalculator {
             -3 * ((this.acc - 1) * totalObj + hits.miss) * 0.5
         );
 
-        if(hits[100] > max300) {
+        if (hits[100] > max300) {
             hits[100] = 0;
             hits[50] = Math.round(-6 * ((this.acc * 0.01 - 1) * totalObj + hits.miss) * 0.5);
             hits[50] = Math.min(max300, hits[50]);
         }
 
         hits[300] = totalObj - hits[100] - hits[50] - hits.miss;
-
+        console.log(hits)
         return hits;
     }
 
@@ -96,9 +96,9 @@ module.exports = class OsuCalculator {
         if(this.mods.has("HD"))
             aimValue *= 1.0 + 0.04 * (12 - AR);
         if(this.mods.has("FL"))
-            aimValue *= 1.0 + 0.35 * Math.min(1, totalObj / 200) + 
-            (hits > 200
-                ? 0.3 * Math.min(1, (totalObj - 200) / 300) + (totalObj > 500 ? (totalObj - 500) / 1200 : 0)
+            aimValue *= 1.0 + 0.35 * Math.min(1, this.combo / 200) + 
+            (this.combo > 200
+                ? 0.3 * Math.min(1, (this.combo - 200) / 300) + (this.combo > 500 ? (this.combo - 500) / 1200 : 0)
                 : 0
             );
         
@@ -118,7 +118,7 @@ module.exports = class OsuCalculator {
         if(this.map.stats.AR > 10.33)
             speedValue *= ARFactor;
 
-        speedValue *= 0.95 + 0.4 * Math.min(1, totalObj / 2e3) + (totalObj > 2e3 ? Math.log10(totalObj / 2e3) * 0.5 : 0);
+        speedValue *= 0.95 + 0.4 * Math.min(1, this.combo / 2e3) + (this.combo > 2e3 ? Math.log10(this.combo / 2e3) * 0.5 : 0);
         speedValue *= Math.pow(0.97, this.miss);
         speedValue *= Math.min(Math.pow(this.combo, 0.8) / Math.pow(this.map.combo, 0.8), 1);
 

@@ -22,8 +22,6 @@ module.exports = class API {
             a: 1,
             mods
         })}`)
-
-        console.log(data[0])
         
         return new Beatmap(data[0]);
     }

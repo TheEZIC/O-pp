@@ -26,10 +26,10 @@ module.exports = class Input {
                         id="combo"
                         type="number"
                         placeholder="Combo"
-                        value=${this.map.combo}
+                        value=${this.map.combo || this.map.objects.totalObj}
                         step=1
                         min=0
-                        max=${this.map.combo}
+                        max=${this.map.combo || this.map.objects.totalObj}
                     >
                 `
             case 'miss':
@@ -41,7 +41,7 @@ module.exports = class Input {
                         placeholder="Miss"
                         step=1
                         min=0
-                        max=${this.map.combo}
+                        max=${this.map.combo || this.map.objects.totalObj}
                     >
                 `
             case 'score': 
