@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/TheEZIC/osu-mania-pp-counter#readme",
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.14.0",
     "axios": "^0.19.2",
     "browserify": "^16.5.1",
     "events": "^3.1.0",

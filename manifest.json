@@ -15,6 +15,7 @@
  },
 
  "permissions": [
+  "webNavigation",
   "tabs",
   "activeTab",
   "https://osu.ppy.sh/beatmapsets/*" 

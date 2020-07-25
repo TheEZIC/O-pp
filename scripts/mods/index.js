@@ -55,7 +55,7 @@ module.exports.Mods = class Mods {
 
 		this.activeMods.forEach(m => {
 			switch (m) {
-				case "ez":
+				case "ez":	
 					return num += 2;
 				case "hr":
 					return num += 16;
@@ -78,7 +78,7 @@ module.exports.Mods = class Mods {
 
 class OsuMods {
 	constructor() {
-		['EZ', 'NF', 'HT', 'HR', 'DT', 'HD', 'FL']
+		['EZ', 'NF', 'HT', 'HR', 'DT', 'HD', 'FL', 'SO']
 		.forEach(m => {
 			this[m] = new Mod(m.toLowerCase());
 		})

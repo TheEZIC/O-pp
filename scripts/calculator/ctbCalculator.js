@@ -8,9 +8,9 @@ module.exports = class ctbCalculator {
     ) {
         this.map = map;
         this.mods = mods;
-        this.combo = combo || this.map.combo;
-        this.acc = acc * 0.01 || 1;
-        this.miss = miss || 0;
+        this.combo = +combo || +this.map.combo;
+        this.acc = +acc * 0.01 || 1;
+        this.miss = +miss || 0;
 
         this.pp = this.calcPP();
     }

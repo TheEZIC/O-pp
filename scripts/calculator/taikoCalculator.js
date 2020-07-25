@@ -8,7 +8,7 @@ module.exports = class TaikoCalculator {
     ) {
         this.map = map;
         this.mods = mods;
-        this.combo = +combo || this.map.objects.totalObj;
+        this.combo = +combo || +this.map.objects.totalObj;
         this.acc = +acc * 0.01 || 1;
         this.miss = +miss || 0;
 

@@ -10,6 +10,7 @@ module.exports = class Beatmap {
         this.mapper = map.creator;
 
         this.combo = +map.max_combo;
+        this.bpm = +map.bpm;
 
         this.stats = {
             CS: +map.diff_size,

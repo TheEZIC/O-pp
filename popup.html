@@ -7,6 +7,20 @@
 </head>
 <body>
 	<div class="container">
+		<!-- Preload -->
+		<div id="preload" class="preload">
+			<div id="cube-loader">
+				<div class="caption">
+						<div class="cube-loader">
+						<div class="cube loader-1"></div>
+						<div class="cube loader-2"></div>
+						<div class="cube loader-4"></div>
+						<div class="cube loader-3"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Header -->
 		<header class="header" id="header">
 			<div class="shadow"></div>
 			<span class="song-title" id="title"></span>
@@ -15,15 +29,16 @@
 		<main class="content">
 			<!-- user-inputs -->
 			<div id="inputsContainer" class="inputs-container"></div>
+			<!-- Map stats -->
+			<div  id="statsContainer" class="stats-container"></div>
 			<!-- Mods -->
 			<div class="mods-container">
 				<!-- EZ -->
 				<div class="mods-item" id="ez-container">
 					<label class="checkbox-container">
 						<input  type="checkbox" id="ez">
-						<img class="mods-icon" id="ez-icon" src="mod-icons/selection-mod-easy.png" alt="NF">
+						<img class="mods-icon" id="ez-icon" src="mod-icons/selection-mod-easy.png" alt="EZ">
 					</label>
-					<span class="mods-title">Easy</span>
 				</div>
 				<!-- NF -->
 				<div class="mods-item" id="nf-container">
@@ -31,23 +46,20 @@
 						<input  type="checkbox" id="nf">
 						<img class="mods-icon" id="nf-icon" src="mod-icons/selection-mod-nofail.png" alt="NF">
 					</label>
-					<span class="mods-title">No fail</span>
 				</div>
 				<!-- HT -->
 				<div class="mods-item" id="ht-container">
 					<label class="checkbox-container">
 						<input  type="checkbox" id="ht">
-						<img class="mods-icon" id="ht-icon" src="mod-icons/selection-mod-halftime.png" alt="NF">
+						<img class="mods-icon" id="ht-icon" src="mod-icons/selection-mod-halftime.png" alt="HT">
 					</label>
-					<span class="mods-title">Half time</span>
 				</div>
 				<!-- HR -->
 				<div class="mods-item" id="hr-container">
 					<label class="checkbox-container">
 						<input  type="checkbox" id="hr">
-						<img class="mods-icon" id="hr-icon" src="mod-icons/selection-mod-hardrock.png" alt="HD">
+						<img class="mods-icon" id="hr-icon" src="mod-icons/selection-mod-hardrock.png" alt="HR">
 					</label>
-					<span class="mods-title">Hard rock</span>
 				</div>
 				<!-- DT -->
 				<div class="mods-item" id="dt-container">
@@ -55,7 +67,6 @@
 						<input  type="checkbox" id="dt">
 						<img class="mods-icon" id="dt-icon" src="mod-icons/selection-mod-doubletime.png" alt="DT">
 					</label>
-					<span class="mods-title">Double time</span>
 				</div>
 				<!-- HD -->
 				<div class="mods-item" id="hd-container">
@@ -63,20 +74,33 @@
 						<input  type="checkbox" id="hd">
 						<img class="mods-icon" id="hd-icon" src="mod-icons/selection-mod-hidden.png" alt="HD">
 					</label>
-					<span class="mods-title">Hidden</span>
 				</div>
 				<!-- FL -->
 				<div class="mods-item" id="fl-container">
 					<label class="checkbox-container">
 						<input  type="checkbox" id="fl">
-						<img class="mods-icon" id="fl-icon" src="mod-icons/selection-mod-flashlight.png" alt="HD">
+						<img class="mods-icon" id="fl-icon" src="mod-icons/selection-mod-flashlight.png" alt="FL">
 					</label>
-					<span class="mods-title">Flashlight</span>
+				</div>
+				<!-- SO -->
+				<div class="mods-item" id="so-container">
+					<label class="checkbox-container">
+						<input  type="checkbox" id="so">
+						<img class="mods-icon" id="so-icon" src="mod-icons/selection-mod-spunout.png" alt="SO">
+					</label>
 				</div>
 			</div>
 		</main>
 		<footer class="footer" id="footer">
+			<div class="footer-stat">
+				<b id="BPM" class="footer-stat__text"></b>
+				<i class="far fa-clock footer-stat__icon"></i>
+			</div>
 			<b id="outer" class="outer"></b>
+			<div class="footer-stat">
+				<i class="fas fa-star footer-stat__icon"></i>
+				<b id="SR" class="footer-stat__text"></b>
+			</div>
 		</footer>
 	</div>
 	<!-- Scripts -->
