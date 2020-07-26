@@ -1,3 +1,5 @@
+let TaikoStats = require("../stats/statsCalculator/TaikoStats");
+
 module.exports = class TaikoCalculator {
     constructor(
         map, 
@@ -11,6 +13,8 @@ module.exports = class TaikoCalculator {
         this.combo = +combo || +this.map.objects.totalObj;
         this.acc = +acc * 0.01 || 1;
         this.miss = +miss || 0;
+
+        this.stats = new TaikoStats(this.map.stats, this.mods)
 
         this.pp = this.calcPP();
     }
@@ -34,18 +38,13 @@ module.exports = class TaikoCalculator {
 
     calcAccValue() {
         let { totalObj } = this.map.objects;
-        let { OD } = this.map.stats;
+        let { OD } = this.stats;
         
-        if (this.mods.has('HR')) OD *= 1.4;
-        if (this.mods.has('EZ')) OD *= 0.5;
-
         let hitWindow = Math.floor(50 + (20 - 50) * OD / 10) - 0.5;
-        console.log(hitWindow)
         let accValue = ((150 / hitWindow) ** 1.1) * (this.acc ** 15) * 22;
-        console.log(accValue)
 
         accValue *= Math.min(1.15, (totalObj / 1500) ** 0.3);
-        console.log(accValue)
+
         return accValue;
     }
 
@@ -57,8 +56,6 @@ module.exports = class TaikoCalculator {
         
         let str = this.calcStrainValue();
         let acc = this.calcAccValue();
-
-        console.log(str, acc)
 
         return Math.pow((str ** 1.1 + acc ** 1.1), 1.0 / 1.1) * multiplier;
     }

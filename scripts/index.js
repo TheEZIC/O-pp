@@ -78,7 +78,7 @@ class Main {
 
 		let modsNum = mods ? mods.activeModsToNum() : 0;
 		let map = await this.api.getBeatmap(beatmapId, mode, modsNum);
-		console.log(map, mods);
+
 		return map;
 	}
 
@@ -151,3 +151,5 @@ class Main {
 }
 
 new Main();
+
+window.odometerOptions = { duration: 500 }

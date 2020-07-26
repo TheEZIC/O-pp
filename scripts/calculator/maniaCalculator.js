@@ -1,8 +1,12 @@
+let ManiaStats = require("../stats/statsCalculator/ManiaStats");
+
 module.exports = class ManiaCalculator {
     constructor(map, mods, score = 1e6, ) {
         this.map = map;
         this.mods = mods;
         this.score = score;
+
+        this.stats = new ManiaStats(this.map.stats, this.mods)
 
         this.pp = this.calcPP();
     }
@@ -34,7 +38,7 @@ module.exports = class ManiaCalculator {
     }
 
     calcAccValue () {
-        let { OD } = this.map.stats;
+        let { OD } = this.stats;
     
         let hitWindow = 34 + 3 * (Math.min(10, Math.max(0, 10 - OD)));
     
@@ -53,8 +57,6 @@ module.exports = class ManiaCalculator {
     
         if (this.mods.has("NF")) multiplier *= 0.9;
         if (this.mods.has("EZ")) multiplier *= 0.5;
-
-        //80 - Math.ceil(6 * OD);
     
         return Math.pow((str ** 1.1 + acc ** 1.1), 1 / 1.1) * multiplier;
     }

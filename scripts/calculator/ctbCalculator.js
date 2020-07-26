@@ -1,3 +1,5 @@
+let CtbStats = require("../stats/statsCalculator/CtbStats");
+
 module.exports = class ctbCalculator {
     constructor(
         map, 
@@ -11,6 +13,8 @@ module.exports = class ctbCalculator {
         this.combo = +combo || +this.map.combo;
         this.acc = +acc * 0.01 || 1;
         this.miss = +miss || 0;
+
+        this.stats = new CtbStats(this.map.stats, this.mods);
 
         this.pp = this.calcPP();
     }
@@ -26,7 +30,7 @@ module.exports = class ctbCalculator {
         pp *= 0.97 ** this.miss;
         pp *= Math.min((this.combo ** 0.8) / (this.map.combo ** 0.8), 1);
 
-        let { AR } = this.map.stats; 
+        let { AR } = this.stats;
         let ARFactor = 1;
 
         if(AR > 9)

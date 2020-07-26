@@ -6,7 +6,6 @@ module.exports = class Mod {
         this.icon = document.getElementById(`${modName}-icon`);
         this.container = document.getElementById(`${modName}-container`);
         this.modsEmitter = require("./index.js").modsEmitter;
-        //console.log(this.modName, this.mod)
 
         if(this.mod)
             this.container.style.display = 'flex';

@@ -1,4 +1,7 @@
-let Stat = require("./stat");
+let OsuStats = require('./statsCalculator/OsuStats');
+let TaikoStats = require('./statsCalculator/TaikoStats');
+let CtbStats = require('./statsCalculator/CtbStats');
+let ManiaStats = require('./statsCalculator/ManiaStats');
 
 module.exports = class Stats {
     constructor(mode) {
@@ -6,47 +9,17 @@ module.exports = class Stats {
     }
 
     update(map, mods) {
+        let { stats } = map;
+
         switch (this.mode) {
             case 1:
-                return new TaikoStats(map, mods);
+                return new TaikoStats(stats, mods).setStats();
             case 2:
-                return new CtbStats(map, mods);
+                return new CtbStats(stats, mods).setStats();
             case 3:
-                return new ManiaStats(map, mods);
+                return new ManiaStats(stats, mods).setStats();
             default:
-                return new OsuStats(map, mods);
+                return new OsuStats(stats, mods).setStats();
         }
-    }
-}
-
-class OsuStats {
-    constructor(map, mods) {
-        let stats = ['OD', 'AR', 'CS', 'HP'].map(m => new Stat(m, map, mods).createStat());
-        console.log(map.stats)
-        document.getElementById('statsContainer').innerHTML = stats.join('');
-    }
-}
-
-class TaikoStats {
-    constructor(map, mods) {
-        let stats = ['OD', 'HP'].map(m => new Stat(m, map, mods).createStat());
-
-        document.getElementById('statsContainer').innerHTML = stats.join('');
-    }
-}
-
-class CtbStats {
-    constructor(map, mods) {
-        let stats = ['OD', 'AR', 'CS', 'HP'].map(m => new Stat(m, map, mods).createStat());
-
-        document.getElementById('statsContainer').innerHTML = stats.join('');
-    }
-}
-
-class ManiaStats {
-    constructor(map, mods) {
-        let stats = ['OD', 'HP'].map(m => new Stat(m, map, mods).createStat());
-
-        document.getElementById('statsContainer').innerHTML = stats.join('');
     }
 }

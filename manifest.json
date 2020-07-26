@@ -1,28 +1,28 @@
 {
- "name": "Osu!mania pp", 
- "version": "1.0", 
- "description": "Osu!mania pp calculator", 
- "manifest_version": 2,
+  "name": "Osu!mania pp",
+  "version": "1.0",
+  "description": "Osu!mania pp calculator", 
+  "manifest_version": 2,
 
- "background": {
-  "scripts": ["background.js"],
-  "persistent": false
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
   },
 
- "page_action": {
-  "default_title": "Osu!mania pp",
-  "default_popup": "popup.html"
- },
+  "page_action": {
+    "default_title": "Osu!mania pp",
+    "default_popup": "popup.html"
+  },
 
- "permissions": [
-  "webNavigation",
-  "tabs",
-  "activeTab",
-  "https://osu.ppy.sh/beatmapsets/*" 
- ],
+  "permissions": [
+    "webNavigation",
+    "tabs",
+    "activeTab",
+    "https://osu.ppy.sh/beatmapsets/*" 
+  ],
 
- "content_scripts": [{
+  "content_scripts": [{
 		"matches": ["https://osu.ppy.sh/beatmapsets/*"],
     "js": ["content_script.js"]
- 	}]
+  }] 
 }
