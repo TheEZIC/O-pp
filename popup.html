@@ -2,11 +2,29 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="style/style.css">
+	<link rel="stylesheet" href="style.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
 </head>
 <body>
 	<div class="container">
+		<!-- Start screen -->
+		<div class="start-screen" id="startScreen">
+			<h2 class="start-screen__title">Please, enter your API key</h2>
+			<div class="start-screen-field">
+				<input 
+					type="text" 
+					class="start-screen-field__input" 
+					placeholder="API key"
+					id="startScreenAPIInput"
+				>
+				<button class="start-screen-field__confirm" id="startScreenAPIConfirm">Confirm</button>
+			</div>
+			<span class="start-screen__developer">Created by TheEZIC</span>
+		</div>
+		<!-- Notification -->
+		<div class="notification" id="notification">
+			
+		</div>
 		<!-- Preload -->
 		<div id="preload" class="preload">
 			<div id="cube-loader">
@@ -20,9 +38,39 @@
 				</div>
 			</div>
 		</div>
+		<!-- Options -->
+		<div class="options" id="options">
+			<i class="fa fa-times options__closeBtn" id="optionsCloseBtn"></i>
+			<h2 class="options__title">Options</h2>
+			
+			<div class="options-item">
+				<span class="options-item__text">Change API key:</span>
+				<div class="options-item-field">
+					<input 
+						type="text" 
+						class="options-item-field__input" 
+						placeholder="New API key" 
+						id="optionsAPIInput" 
+					>
+					<button class="options-item-field__confirm" id="optionsAPIConfirm">Change</button>
+				</div>
+			</div>
+		</div>
 		<!-- Header -->
 		<header class="header" id="header">
 			<div class="shadow"></div>
+
+			<div class="urls">
+				<a class="urls__item" target="_blank" href="https://www.donationalerts.com/r/theezic_">
+					<i class="fas fa-money-bill-wave urls__icon"></i>
+				</a>
+				<a class="urls__item" target="_blank" href="https://github.com/TheEZIC/O-pp">
+					<i class="fab fa-github urls__icon"></i>
+				</a>
+			</div>
+
+			<i class="fa fa-cog options-btn" id="optionsBtn"></i>
+
 			<span class="song-title" id="title"></span>
 			<span class="song-title" id="artist"></span>
 		</header>
@@ -37,56 +85,56 @@
 				<div class="mods-item" id="ez-container">
 					<label class="checkbox-container">
 						<input  type="checkbox" id="ez">
-						<img class="mods-icon" id="ez-icon" src="mod-icons/selection-mod-easy.png" alt="EZ">
+						<img class="mods-icon" id="ez-icon" src="assets/mod-icons/easy.png" alt="EZ">
 					</label>
 				</div>
 				<!-- NF -->
 				<div class="mods-item" id="nf-container">
 					<label class="checkbox-container" id="nf-container">
 						<input  type="checkbox" id="nf">
-						<img class="mods-icon" id="nf-icon" src="mod-icons/selection-mod-nofail.png" alt="NF">
+						<img class="mods-icon" id="nf-icon" src="assets/mod-icons/nofail.png" alt="NF">
 					</label>
 				</div>
 				<!-- HT -->
 				<div class="mods-item" id="ht-container">
 					<label class="checkbox-container">
 						<input  type="checkbox" id="ht">
-						<img class="mods-icon" id="ht-icon" src="mod-icons/selection-mod-halftime.png" alt="HT">
+						<img class="mods-icon" id="ht-icon" src="assets/mod-icons/halftime.png" alt="HT">
 					</label>
 				</div>
 				<!-- HR -->
 				<div class="mods-item" id="hr-container">
 					<label class="checkbox-container">
 						<input  type="checkbox" id="hr">
-						<img class="mods-icon" id="hr-icon" src="mod-icons/selection-mod-hardrock.png" alt="HR">
+						<img class="mods-icon" id="hr-icon" src="assets/mod-icons/hardrock.png" alt="HR">
 					</label>
 				</div>
 				<!-- DT -->
 				<div class="mods-item" id="dt-container">
 					<label class="checkbox-container">
 						<input  type="checkbox" id="dt">
-						<img class="mods-icon" id="dt-icon" src="mod-icons/selection-mod-doubletime.png" alt="DT">
+						<img class="mods-icon" id="dt-icon" src="assets/mod-icons/doubletime.png" alt="DT">
 					</label>
 				</div>
 				<!-- HD -->
 				<div class="mods-item" id="hd-container">
 					<label class="checkbox-container">
 						<input  type="checkbox" id="hd">
-						<img class="mods-icon" id="hd-icon" src="mod-icons/selection-mod-hidden.png" alt="HD">
+						<img class="mods-icon" id="hd-icon" src="assets/mod-icons/hidden.png" alt="HD">
 					</label>
 				</div>
 				<!-- FL -->
 				<div class="mods-item" id="fl-container">
 					<label class="checkbox-container">
 						<input  type="checkbox" id="fl">
-						<img class="mods-icon" id="fl-icon" src="mod-icons/selection-mod-flashlight.png" alt="FL">
+						<img class="mods-icon" id="fl-icon" src="assets/mod-icons/flashlight.png" alt="FL">
 					</label>
 				</div>
 				<!-- SO -->
 				<div class="mods-item" id="so-container">
 					<label class="checkbox-container">
 						<input  type="checkbox" id="so">
-						<img class="mods-icon" id="so-icon" src="mod-icons/selection-mod-spunout.png" alt="SO">
+						<img class="mods-icon" id="so-icon" src="assets/mod-icons/spunout.png" alt="SO">
 					</label>
 				</div>
 			</div>

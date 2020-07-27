@@ -28,8 +28,8 @@ module.exports = class TaikoCalculator {
         strainValue *= 0.985 ** this.miss;
         strainValue *= Math.min((this.combo - this.miss) ** 0.5 / this.map.combo ** 0.5, 1);
 
-        if(this.mods.has("HD")) strainValue *= 1.025;
-        if(this.mods.has("FL")) strainValue *= 1.05 * lengthBonus;
+        if (this.mods.has("HD")) strainValue *= 1.025;
+        if (this.mods.has("FL")) strainValue *= 1.05 * lengthBonus;
 
         strainValue *= this.acc;
 
@@ -51,8 +51,8 @@ module.exports = class TaikoCalculator {
     calcPP() {
         let multiplier = 1.1;
 
-        if(this.mods.has("NF")) multiplier *= 0.9;
-        if(this.mods.has("HD")) multiplier *= 1.1;
+        if (this.mods.has("NF")) multiplier *= 0.9;
+        if (this.mods.has("HD")) multiplier *= 1.1;
         
         let str = this.calcStrainValue();
         let acc = this.calcAccValue();

@@ -1,8 +1,14 @@
 {
-  "name": "Osu!mania pp",
-  "version": "1.0",
-  "description": "Osu!mania pp calculator", 
+  "name": "O!pp",
+  "version": "0.1.0",
+  "description": "Calculate PP and beatmap stats for every game mode", 
   "manifest_version": 2,
+
+  "icons": { 
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
 
   "background": {
     "scripts": ["background.js"],
@@ -10,19 +16,21 @@
   },
 
   "page_action": {
-    "default_title": "Osu!mania pp",
+    "default_title": "O!pp",
     "default_popup": "popup.html"
   },
 
   "permissions": [
     "webNavigation",
+    "storage",
     "tabs",
     "activeTab",
-    "https://osu.ppy.sh/beatmapsets/*" 
+    "https://osu.ppy.sh/beatmapsets/*"
   ],
 
   "content_scripts": [{
 		"matches": ["https://osu.ppy.sh/beatmapsets/*"],
     "js": ["content_script.js"]
-  }] 
+  }],
+  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'"
 }

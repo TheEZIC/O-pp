@@ -1,5 +1,13 @@
+@import 'fonts.scss';
+@import 'options.scss';
+@import 'startScreen.scss';
+@import 'notification.scss';
 @import '../node_modules/odometer/themes/odometer-theme-default';
 @import '../node_modules/@fortawesome/fontawesome-free/css/all.css';
+
+* {
+	user-select: none;
+}
 
 .preload {
 	width: 100%;
@@ -8,7 +16,7 @@
 	top: 0;
 	left: 0;
 	background: white;
-	z-index: 9999999999;
+	z-index: 99;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -21,6 +29,7 @@
 .header {
 	width: 100%;
 	height: 120px;
+	position: relative;
 	border-bottom: 6px #B22222 solid;
 	display: flex;
 	align-items: flex-end;
@@ -30,6 +39,8 @@
 	background-size: cover;
 	background-position: 50% 50%;
 	z-index: 2;
+	font-family: Torus;
+	font-weight: 500;
 }
 
 .shadow {
@@ -39,6 +50,49 @@
 	background: #000000;
 	opacity: .6;
 	z-index: 3;
+}
+
+.options-btn {
+	position: absolute;
+	top: 12px;
+	right: 12px;
+	transition: all ease-in-out .1s;
+	font-size: 20px;
+	color: white;
+	z-index: 6;
+	&:hover {
+		cursor: pointer;
+		color: darken(white, 40%);
+	}
+}
+
+.urls {
+	width: 60px;
+	position: absolute;
+	bottom: 12px;
+	right: 12px	;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	z-index: 6;
+	&__item {
+		width: 25px;
+		height: 20px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		text-decoration: none;
+		&:hover i{
+			cursor: pointer;
+			color: darken(white, 40%);
+		}
+	}
+	&__icon {
+		transition: all ease-in-out .1s;
+		font-size: 20px;
+		color: white;
+		cursor: pointer;
+	}
 }
 
 .content {
@@ -71,6 +125,8 @@
 	justify-content: space-around;
 	align-items: center;
 	flex-wrap: wrap;
+	font-family: Torus;
+	font-weight: 300;
 	.input {
 		width: 24%;
 		height: 25px;
@@ -85,10 +141,9 @@
 
 .mods-container {
 	width: 100%;
-	/* min-height: 100px; */
 	padding: 10px 0;
 	display: flex;
-	justify-content: space-around;
+	justify-content: space-between;
 	align-items: center;
 	flex-wrap: wrap;
 	.mods-item {
@@ -101,6 +156,7 @@
 		img {
 			width: 100%;
 			height: auto;
+			transition: all ease-in-out .2s;
 		}
 	}
 }
@@ -125,6 +181,7 @@ $HP: #1fba38;
 		justify-content: center;
 		align-items: center;
 		color: white;
+		font-family: Torus;
 		font-weight: 600;
 		font-size: 16px;
 		&--OD {
@@ -166,9 +223,18 @@ $HP: #1fba38;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		font-weight: bold;
+		font-family: Torus;
+		font-weight: 700;
 		font-size: 32px;
 		color: #fff;
+	}
+}
+
+.odometer-digit {
+	box-sizing: border-box;
+	padding: 0 1px;
+	* {
+		box-sizing: border-box;
 	}
 }
 
@@ -181,6 +247,8 @@ $HP: #1fba38;
 	font-size: 20px;
 	&__text {
 		padding-bottom: 3px;
+		font-family: Torus;
+		font-weight: 500;
 	}
 	&__icon {
 		margin: 0 5px;
@@ -217,7 +285,7 @@ $HP: #1fba38;
 			left: 0;
 			width: 100%;
 			height: 100%;
-			background-color: blue;
+			background-color: #FF4500;
 			animation: cube-loader 2.76s infinite linear both;
 			transform-origin: 100% 100%;
 		}
