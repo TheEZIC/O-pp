@@ -1,0 +1,52 @@
+.notification {
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    position: absolute;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    font-family: Torus;
+    background: url('../assets/backgrounds/bg-light.png');
+    background-size: cover;
+    background-position: center center;
+    &__closeBtn {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        font-size: 26px;
+        color: black;
+        transition: all ease-in-out .1s;
+        &:hover {
+            cursor: pointer;
+            color: gray;
+        }
+    }
+    &__icon {
+        font-size: 156px;
+        margin: 20px 0;
+        &--warning {
+            color: orange;
+        }
+        &--error {
+            color: #E00;
+        }
+    }
+    &__title {
+        text-align: center;
+        font-size: 24px;
+    }
+    &__developer {
+        width: 100%;
+        margin: 10px 0;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        text-align: center;
+        font-size: 18px;
+        color: gray;
+    }
+}

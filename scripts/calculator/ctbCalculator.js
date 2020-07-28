@@ -33,28 +33,27 @@ module.exports = class ctbCalculator {
         let { AR } = this.stats;
         let ARFactor = 1;
 
-        if(AR > 9)
+        if (AR > 9)
             ARFactor += 0.1 * (AR - 9);
-        if(AR > 10)
+        if (AR > 10)
             ARFactor += 0.1 * (AR - 10);
         else if(AR < 8)
             ARFactor += 0.025 * (8 - AR);
 
         pp *= ARFactor;
 
-        if(this.mods.has("HD")) {
+        if (this.mods.has("HD")) {
             pp *= 1.05 + 0.075 * (10 - Math.min(10, AR));
             if(AR <= 10)
                 pp *= 1.05 + 0.075 * (10 - AR);
             else if(AR > 10)
                 pp *= 1.01 + 0.04 * (11 - Math.min(AR, 11));
         }
-        if(this.mods.has("FL"))
-            pp *= 1.35 * lengthBonus;
+        if (this.mods.has("FL")) pp *= 1.35 * lengthBonus;
         
         pp *= Math.pow(this.acc, 5.5);
-        if(this.mods.has("NF"))
-            pp *= 0.9;
+        
+        if (this.mods.has("NF")) pp *= 0.9;
 
         return pp;
     }

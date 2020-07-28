@@ -24,6 +24,7 @@
     "gulp": "^4.0.2",
     "odometer": "^0.4.8",
     "query-string": "^6.13.1",
+    "senver": "0.0.0",
     "vinyl-source-stream": "^2.0.0"
   },
   "devDependencies": {

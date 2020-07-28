@@ -1,5 +1,7 @@
 /node_modules
-/style/*.css
 /style/*.map
 config.json
 popup.js
+style.css
+*.rar
+*.zip

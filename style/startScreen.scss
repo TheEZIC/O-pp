@@ -1,0 +1,74 @@
+.start-screen {
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    position: absolute;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    font-family: Torus;
+    background: url('../assets/backgrounds/bg-light.png');
+    background-size: cover;
+    background-position: center center;
+    &__title {
+        text-align: center;
+        font-size: 24px;
+    }
+    &__developer {
+        width: 100%;
+        margin: 10px 0;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        text-align: center;
+        font-size: 18px;
+        color: gray;
+    }
+}
+
+.start-screen-field {
+    width: 100%;
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    &__input {
+        width: 80%;
+        height: 25px;
+        border: 2px solid grey;
+        border-radius: 6px;
+        padding-left: 1%;
+        &:focus {
+            outline: none;
+        }
+    }
+    &__confirm {
+        padding: 0 10px;
+        height: 30px;
+        margin: 0 10px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-family: Torus;
+        font-weight: 600;
+        font-size: 16px;
+        background: lighten(green, 8%);
+        border: 0px solid transparent;
+        border-bottom: 3px solid darken(green, 10%);
+        outline: none;
+        transition: all ease-in-out .1s;
+        &:hover {
+            cursor: pointer;
+            background: lighten(green, 12%);
+        }
+        &:active {
+            border-width: 0px;
+        }
+    }
+}

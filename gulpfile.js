@@ -16,7 +16,7 @@ gulp.task('scripts', () => {
 gulp.task('styles', () => {
     return gulp.src('./style/style.scss')
     .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest('./style'));
+    .pipe(gulp.dest('./'));
 })
 
 gulp.task('default', () => {

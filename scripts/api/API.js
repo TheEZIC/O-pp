@@ -1,7 +1,7 @@
 let { default: axios } = require('axios');
 let qs = require('query-string');
-let { APIKey } = require('../../config.json');
 let Beatmap = require('./Beatmap');
+let Notification = require('../notification');
 
 module.exports = class API {
     constructor() {
@@ -12,17 +12,35 @@ module.exports = class API {
         })
     }
 
-    async getBeatmap(beatmapId, mode = 0, mods = 0) {
-        if (!beatmapId) return;
+    getApiKey() {
+        return new Promise(resolve => {
+            return chrome.storage.local.get(['APIKey'], async res => resolve(res.APIKey))
+        })
+    }
 
-        let { data } = await this.api.get(`get_beatmaps?${qs.stringify({
-            k: APIKey,
-            b: beatmapId,
-            m: mode,
-            a: 1,
-            mods
-        })}`)
-        
-        return new Beatmap(data[0]);
+    async getBeatmap(beatmapId, mode = 0, mods = 0) {
+        let mapData = await this.getApiKey().then(async APIKey => {
+            try {
+                let { data } = await this.api.get(`get_beatmaps?${qs.stringify({
+                    k: APIKey,
+                    b: beatmapId,
+                    m: mode,
+                    a: 1,
+                    mods
+                })}`)
+    
+                return (data[0]);
+            } catch(e) {
+                console.log(e)
+            }
+        })
+
+        if (!mapData) return new Notification({ 
+            type: 'ERROR', 
+            text: 'Wrong API Key. Please, restart extension and enter correct',
+            removeAPI: true
+        });
+
+        return new Beatmap(mapData);
     }
 }
