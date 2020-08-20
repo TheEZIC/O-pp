@@ -28,11 +28,18 @@ module.exports = class OsuStats {
     modifyAR(AR, speedMul, multiplier) {
         AR *= multiplier;
 
-        let arms = AR < 5 ? 1800 - 120 * AR : 1200 - 500 * (AR - 5);
+        let arms = (
+            AR < 5 ?
+            1800 - 120 * AR
+            : 1200 - 150 * (AR - 5)
+        );
         arms = Math.min(1800, Math.max(450, arms));
         arms /= speedMul;
-
-        AR = arms > 1200 ? (1800 - arms) / 120 : 5 + (1200 - arms) / 150;
+        AR = (
+            arms > 1200 ?
+            (1800 - arms) / 120
+            : 5 + (1200 - arms) / 150
+        );
 
         return AR;
     }

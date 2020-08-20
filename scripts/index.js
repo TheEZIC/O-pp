@@ -30,7 +30,6 @@ class Main {
 	constructor() {
 		this.settings = new Setting();
 		this.api = new API();
-		new Odometer({ el: popupOuter, duration: 1e3, format: '' });
 		this.tryToGetAPIKey().then(a => {
 			if (a)
 				this.init();
@@ -45,9 +44,8 @@ class Main {
 			if(data.message) return null;
 			let lastVersion = semver.valid(semver.coerce(data[0].name));
 			let nowVersion = semver.valid(semver.coerce(currentVersion));
-			console.log(lastVersion, nowVersion);
 			if(semver.lt(nowVersion, lastVersion))
-				return new Notification({ type: 'WARNING', text: 'New update released, please update' });;
+				return new Notification({ type: 'WARNING', text: 'New update released, please update' });
 		} catch (e) {
 			return null;
 		}
@@ -65,7 +63,7 @@ class Main {
 			this.beatmapsetId = d.beatmapsetId;
 			this.mode = this.modeToNumber(d.mode);
 
-			this.checkUpdate();
+			await this.checkUpdate();
 
 			this.mods = new Mods(this.mode);
 

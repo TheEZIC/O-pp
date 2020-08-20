@@ -4,7 +4,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 		let url = document.location.href;
 		let urlData = regexp.exec(url);
 		let { beatmapsetId, beatmapId, mode } = urlData.groups;
-
+		console.log(urlData)
 		sendResponse({
 			status: 'SUCCESS',
 			beatmapId,

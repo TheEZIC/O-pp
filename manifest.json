@@ -1,6 +1,6 @@
 {
-  "name": "O!pp",
-  "version": "0.1.0",
+  "name": "o!pp",
+  "version": "0.1.3",
   "description": "Calculate PP and beatmap stats for every game mode", 
   "manifest_version": 2,
 
@@ -21,15 +21,13 @@
   },
 
   "permissions": [
-    "webNavigation",
     "storage",
     "tabs",
-    "activeTab",
-    "https://osu.ppy.sh/beatmapsets/*"
+    "https://osu.ppy.sh/"
   ],
 
   "content_scripts": [{
-		"matches": ["https://osu.ppy.sh/beatmapsets/*"],
+		"matches": ["https://osu.ppy.sh/*"],
     "js": ["content_script.js"]
   }],
   "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'"

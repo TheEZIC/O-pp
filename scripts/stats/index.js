@@ -10,7 +10,7 @@ module.exports = class Stats {
 
     update(map, mods) {
         let { stats } = map;
-
+        
         switch (this.mode) {
             case 1:
                 return new TaikoStats(stats, mods).setStats();
