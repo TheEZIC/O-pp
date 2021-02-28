@@ -1,8 +1,7 @@
 let Input = require("./input");
 
-module.exports = class Inputs {
+module.exports = class Inputs {ё
     constructor(map, mode) {
-        this.name = name;
         this.map = map;
         this.mode = mode;
         this.container = document.getElementById('inputsContainer');
@@ -33,5 +32,11 @@ class DefaultInputs {
 class ManiaInputs {
     constructor(container) {
         container.innerHTML = new Input('score').createInput();
+        
+        document.getElementById("statsContainer").style.cssText = `
+            position: absolute;
+            top: 4px;
+            justify-content: space-between;
+        `;
     }
 }

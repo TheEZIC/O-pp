@@ -1,3 +1,4 @@
+@import 'vars.scss';
 @import 'normolize.scss';
 @import 'fonts.scss';
 @import 'options.scss';
@@ -31,12 +32,12 @@
 	width: 100%;
 	height: 120px;
 	position: relative;
-	border-bottom: 6px #B22222 solid;
+	border-bottom: 6px $color2 solid;
 	display: flex;
 	align-items: flex-end;
 	align-content: flex-end;
 	flex-wrap: wrap;
-	background: blue;
+	background: pink;
 	background-size: cover;
 	background-position: 50% 50%;
 	z-index: 2;
@@ -70,8 +71,8 @@
 .urls {
 	width: 60px;
 	position: absolute;
-	bottom: 12px;
-	right: 12px	;
+	top: 12px;
+	left: 12px	;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -97,7 +98,9 @@
 }
 
 .content {
+	position: relative;
 	display: flex;
+	background: $color1;
 	flex-direction: column;
 }
 
@@ -106,17 +109,17 @@
 	position: relative;
 	bottom: 0;
 	margin-left: 2%;
-	margin-bottom: 1.5%;
+	margin-bottom: 4px;
 	z-index: 4;
 	color: #fff;
 }
 
 #title {
-	font-size: 1.5rem;
+	font-size: 1.2rem;
 }
 
 #artist{
-	font-size: 1.2em;
+	font-size: 1.0em;
 }
 
 .inputs-container {
@@ -128,15 +131,22 @@
 	flex-wrap: wrap;
 	font-family: Torus;
 	font-weight: 300;
+	z-index: 5;
 	.input {
 		width: 24%;
 		height: 25px;
 		border: 2px solid grey;
+		background: lighten($color1, 10%);
 		border-radius: 6px;
 		padding-left: 1%;
+		color: white;
 		&:focus {
 			outline: none;
 		}
+	}
+
+	#score {
+		width: 30%;
 	}
 }
 
@@ -217,7 +227,7 @@ $HP: #1fba38;
 	display: flex;
 	justify-content: center;
 	align-items:center;
-	background: #FF4500;
+	background: $color2;
 	.outer {
 		width: 100%;
 		height: 100%;

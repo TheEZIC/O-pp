@@ -35,11 +35,14 @@ module.exports = class API {
             }
         })
 
-        if (!mapData) return new Notification({ 
-            type: 'ERROR', 
-            text: 'Wrong API Key. Please, restart extension and enter correct',
-            removeAPI: true
-        });
+        if (!mapData) {
+            new Notification({ 
+                type: 'ERROR', 
+                text: 'Wrong API Key. Please, restart extension and enter correct',
+            });
+
+            return chrome.storage.local.remove(['APIKey']);
+        }
 
         return new Beatmap(mapData);
     }

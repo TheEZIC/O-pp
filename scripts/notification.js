@@ -1,11 +1,14 @@
 module.exports = class Notification {
+    containerElement = document.getElementById('notification');
+    closeElement = document.getElementById('notificationCloseBtn');
+
     constructor(params) {
         this.params = params; 
-        this.notification = document.getElementById('notification');
+        
         this.createNotification();
 
         if (this.params.type !== 'ERROR')
-            document.getElementById('notificationCloseBtn').addEventListener('click', () => this.close());
+            this.closeElement.addEventListener('click', () => this.close());
     }
 
     createNotification() {
@@ -24,15 +27,14 @@ module.exports = class Notification {
                 <i class="fas fa-times-circle notification__icon notification__icon--error"></i>
                 <span class="notification__title">${text}</span>
             `;
-            if (removeAPI) chrome.storage.local.remove(['APIKey']);
         }
 
-        this.notification.innerHTML = content;
-        this.notification.style.display = 'flex';
+        this.containerElement.innerHTML = content;
+        this.containerElement.style.display = 'flex';
     }
 
     close() {
-        this.notification.style.display = 'none';
-        document.getElementById('notificationCloseBtn').removeEventListener('click', () => this.close());
+        this.containerElement.style.display = 'none';
+        this.closeElement.removeEventListener('click', () => this.close());
     }
 }

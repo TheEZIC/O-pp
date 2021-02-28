@@ -20,12 +20,12 @@ module.exports = class OsuCalculator {
     }
 
     calcARWithFactor(AR) {
-        let ARFactor = 1;
+        let ARFactor = 0;
 
         if (AR > 10.33)
-            ARFactor += 0.3 * (AR - 10.33);
+            ARFactor += 0.4 * (AR - 10.33);
         else if (AR < 8)
-            ARFactor += 0.01 * (8 - AR);
+            ARFactor += 0.1 * (8 - AR);
 
         return ARFactor;
     }
@@ -89,12 +89,13 @@ module.exports = class OsuCalculator {
 
         aimValue = Math.pow(5 * Math.max(1, aimValue / 0.0675) - 4, 3) / 1e5;
         aimValue *= 0.95 + 0.4 * Math.min(1, totalObj / 2e3) + (totalObj > 2e3 ? Math.log10(totalObj / 2e3) * 0.5 : 0);
-        aimValue *= 0.97 ** this.miss;
+        if (miss > 0)
+            aimValue *= 0.97 * Math.pow(1 - Math.pow(this.miss / totalObj - totalObj, 0.775), this.miss);
         aimValue *= Math.min((this.combo ** 0.8) / (this.map.combo ** 0.8), 1);
 
         let ARFactor = this.calcARWithFactor(AR);
 
-        aimValue *= ARFactor;
+        aimValue *= 1 + Math.min(AR, ARFactor * (totalObj / 1000));
 
         if (this.mods.has("HD")) aimValue *= 1.0 + 0.04 * (12 - AR);
         if (this.mods.has("FL")) {
@@ -114,21 +115,30 @@ module.exports = class OsuCalculator {
     calcSpeedValue() {
         let { AR, OD } = this.stats;
         let { totalObj } = this.map.objects;
+
         let speedValue = Math.pow(5 * Math.max(1, this.map.diff.speed / 0.0675) - 4, 3) / 1e5;
-        let ARFactor = this.calcARWithFactor(AR);
+        let lengthBonus = 0.95 + 0.4 * Math.min(1, totalObj / 2000) + (totalObj > 2000 ? Math.log10(totalObj / 2000) * 0.5 : 0);
 
-        if(AR > 10.33)
-            speedValue *= ARFactor;
+        speedValue *= lengthBonus;
 
-        speedValue *= 0.95 + 0.4 * Math.min(1, totalObj / 2e3) + (totalObj > 2e3 ? Math.log10(totalObj / 2e3) * 0.5 : 0);
-        speedValue *= 0.97 ** this.miss;
-        speedValue *= Math.min((this.combo ** 0.8) / (this.map.combo ** 0.8), 1);
+        if (this.miss > 0)
+            speedValue *= 0.97 * Math.pow(1 - Math.pow(this.miss / totalObj, 0.775), Math.pow(this.miss, 0.875));
 
-        if(this.mods.has("HD"))
-            speedValue *= 1 + 0.04 * (12 - AR);
+        if (this.map.combo > 0)
+            speedValue *= Math.min(Math.pow(this.combo, 0.8) / Math.pow(this.map.combo, 0.8), 1);
 
-        speedValue *= 0.02 + this.acc;
-        speedValue *= 0.96 + (Math.pow(OD, 2) / 1600);
+        let arFactor = 0;
+        if (AR > 10.33)
+            arFactor += 0.4 * (AR - 10.33);
+
+        const count50 = 0;
+
+        speedValue *= 1 + Math.min(arFactor, arFactor * (totalObj / 1000));
+        speedValue *= (0.95 + Math.pow(OD, 2) / 750) * Math.pow(this.acc, (14.5 - Math.max(OD, 8)) / 2);
+        speedValue *= Math.pow(0.98, count50 < totalObj / 500 ? 0 : count50 - totalObj / 500);
+
+        /* if(this.mods.has("HD"))
+            speedValue *= 1 + 0.04 * (12 - AR); */
 
         return speedValue;
     }
@@ -156,8 +166,10 @@ module.exports = class OsuCalculator {
     calcPP() {
         let multiplier = 1.12;
 
-        if(this.mods.has("NF")) multiplier *= 0.9;
-        if(this.mods.has("SO")) multiplier *= 0.95;
+        this.map
+
+        if(this.mods.has("NF")) Math.max(0.9, 1.0 - 0.02 * this.miss);
+        if(this.mods.has("SO")) 1 - Math.pow(this.map.objects.spinners / this.map.totalObj, 0.85);
         
         let aim = this.calcAimValue();
         let speed = this.calcSpeedValue();

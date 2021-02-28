@@ -1,8 +1,14 @@
+let { setMapInformation } = require("../utils");
+
 module.exports = class InputsListener {
-    constructor(map, mode, setMapInformation) {
+    constructor(main) {
+		this.main = main;
+
+		const { map, mode, mods } = main;
+
         this.map = map;
-        this.setMapInformation = setMapInformation;
-        this.listen(mode)
+		this.mods = mods;
+        this.listen(mode);
     }
 
 	listen(mode) {
@@ -20,13 +26,15 @@ module.exports = class InputsListener {
 		return (
 			document.querySelectorAll('.default-input')
 			.forEach(e => e.addEventListener('input', e => {
-				let { value, id } = e.target;
+				const { value, id } = e.target;
 
 				if (id === 'accuracy') this.accuracy = value;
 				if (id === 'combo') this.combo = value;
 				if (id === 'miss') this.miss = value;
 
-				return this.setMapInformation(this.map);
+				const { pp } = this.main.getPP();
+
+				return setMapInformation(this.map, this.mods, pp);
 			}))
 		);
 	}
@@ -34,11 +42,12 @@ module.exports = class InputsListener {
 	listenManiaInputs() {
 		return (
 			document.getElementById('score').addEventListener('input', e => {
-				let { value } = e.target;
-
+				const { value } = e.target;
 				this.score = value;
 
-				return this.setMapInformation(this.map);
+				const { pp } = this.main.getPP();
+
+				return setMapInformation(this.map, this.mods, pp);
 			})
 		);
 	}
